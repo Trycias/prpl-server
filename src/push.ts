@@ -20,7 +20,7 @@ import * as validUrl from 'valid-url';
  */
 export interface PushManifestData {
   [pattern: string]: {
-    [resource: string]: {type: string; crossorigin?: string; weight?: number;}
+    [resource: string]: { type: string; crossorigin?: string; weight?: number; }
   }
 }
 
@@ -32,10 +32,10 @@ export class PushManifest {
   private mapping = new Array<[
     RegExp,
     Map<string,
-        {
-          type: string;
-          crossorigin: string|null
-        }>
+      {
+        type: string;
+        crossorigin: string | null
+      }>
   ]>();
 
   /**
@@ -69,7 +69,7 @@ export class PushManifest {
         if (!requestDestinations.has(type)) {
           throw new Error(`invalid type: ${type}`);
         }
-        resources.set(normalizePath(resource, basePath), {type, crossorigin});
+        resources.set(normalizePath(resource, basePath), { type, crossorigin });
       }
       if (resources.size) {
         let normalizedPattern;
@@ -102,7 +102,7 @@ export class PushManifest {
       if (!resources || !pattern.test(normalizedPattern)) {
         continue;
       }
-      for (const [resource, {type, crossorigin}] of resources.entries()) {
+      for (const [resource, { type, crossorigin }] of resources.entries()) {
         let header = `<${resource}>; rel=preload`;
         if (type) {
           header += `; as=${type}`;
